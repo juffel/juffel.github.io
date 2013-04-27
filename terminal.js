@@ -1,20 +1,22 @@
 function Terminal() {
     var width = window.innerWidth - 15;
     var height = window.innerHeight - 10;
-    document.writeln("<canvas id='screen' width='" + width + "' height='" + height + "'></canvas>")
+    document.writeln("<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>")
     unloadScrollbars();
 
     // settings
     var fontType = "bold 20px TlwgTypewriter";
     var textSize = 20;
+    var rowMargin = 2; // margin between two rows of text
     var textColor = "#00FF00";
     var leftMargin = 5;
     var backgroundColor = "black";
-    var inputRowHeight = textSize*2;
+    var inputRowHeight = textSize + rowMargin;
 
     var screen;
     var ctx;
     var content = []; // array of lines of text
+    var inputBuffer = "$ ";
 
     _init();
 
@@ -46,11 +48,11 @@ function Terminal() {
 
     function _drawContent() {
         _clear();
-        for(var i = content.length; i > 0 && screen.height - inputRowHeight - textSize*(content.length - i) >= 0 ; i--) {
-            ctx.fillStyle = textColor;
-            ctx.font = fontType;
-            ctx.fillText(content[i-1], leftMargin, screen.height - inputRowHeight - (i*textSize));
+        for(var i = content.length; i > 0 && screen.height - inputRowHeight - (textSize+rowMargin)*(content.length - i) >= 0 ; i--) {
+            _placeText(content[i-1], leftMargin, screen.height - inputRowHeight - ((i-1)*(textSize + rowMargin)));
         }
+        // draw Prompt
+        _placeText(inputBuffer, leftMargin, screen.height);
     }
 
     function _init() {
@@ -60,8 +62,33 @@ function Terminal() {
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, screen.width, screen.height);
         write("WELCOME!");
+
+        screen.onkeypress = function(event) {
+            _handleKeypress(event);
+        };
     }
     
+    function _handleKeypress(event) {
+        var charCode = event.which;
+        // if (isBackspace) ...
+        //// remove last char
+        // else ...
+        inputBuffer = inputBuffer + String.fromCharCode(charCode);
+
+        ctx.clearRect(0, screen.height-inputRowHeight, screen.width, screen.height);
+        ctx.fillStyle = backgroundColor;
+        ctx.fillRect(0, screen.height-inputRowHeight, screen.width, screen.height);
+        _placeText(inputBuffer, leftMargin, screen.height);
+    }
+
+    function _placeText(string, x, y) {
+        ctx.fillStyle = textColor;
+        ctx.font = fontType;
+        ctx.textAlign = "align";
+        ctx.textBaseline = "bottom";
+        ctx.fillText(string, x, y);
+    }
+
     return {
         setInputHandler : setInputHandler,
         write : write,
