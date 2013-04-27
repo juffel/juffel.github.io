@@ -17,6 +17,7 @@ function Terminal() {
     var ctx;
     var content = []; // array of lines of text
     var inputBuffer = "$ ";
+    var cursorStat = true;
 
     _init();
 
@@ -66,15 +67,41 @@ function Terminal() {
         screen.onkeypress = function(event) {
             _handleKeypress(event);
         };
+        setInterval(function() {_toggleCursorBlink();}, 300);
     }
     
     function _handleKeypress(event) {
         var charCode = event.which;
-        // if (isBackspace) ...
-        //// remove last char
-        // else ...
-        inputBuffer = inputBuffer + String.fromCharCode(charCode);
+        // if(isEnter)
+        if(charCode === 13) {
+            // TODO
+            alert("You Puchsed Enter");
+        }
+        // if(isBackspace)
+        else if(charCode === 8) {
+            // TODO
+        }
+        else {
+            inputBuffer = inputBuffer + String.fromCharCode(charCode);
+            _redrawInputRow();
+        }
+    }
 
+    function _toggleCursorBlink() {
+        cursorStat = !cursorStat;
+        _redrawInputRow();
+        if(cursorStat) {
+            // String basteln, der transparent über die inputRow gelegt werden kann, sodass an deren Ende ein Zeichen erscheinen kann
+            var buf = "";
+            for(var i = 0; i < inputBuffer.length; i++) {
+                buf = buf + " ";
+            }
+            buf = buf + "*";
+            _placeText(buf, leftMargin, screen.height);
+        }
+    }
+    
+    function _redrawInputRow() {
         ctx.clearRect(0, screen.height-inputRowHeight, screen.width, screen.height);
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, screen.height-inputRowHeight, screen.width, screen.height);
