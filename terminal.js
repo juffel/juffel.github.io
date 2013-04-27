@@ -50,7 +50,7 @@ function Terminal() {
     function _drawContent() {
         _clear();
         for(var i = content.length; i > 0 && screen.height - inputRowHeight - (textSize+rowMargin)*(content.length - i) >= 0 ; i--) {
-            _placeText(content[i-1], leftMargin, screen.height - inputRowHeight - ((i-1)*(textSize + rowMargin)));
+            _placeText(content[content.length-i], leftMargin, screen.height - inputRowHeight - ((i-1)*(textSize + rowMargin)));
         }
         // draw Prompt
         _placeText(inputBuffer, leftMargin, screen.height);
@@ -74,12 +74,13 @@ function Terminal() {
         var charCode = event.which;
         // if(isEnter)
         if(charCode === 13) {
-            // TODO
-            alert("You Puchsed Enter");
+            content.push(inputBuffer);
+            inputBuffer = "$ ";
+            _drawContent();
         }
         // if(isBackspace)
         else if(charCode === 8) {
-            // TODO
+            // vl noch implementieren
         }
         else {
             inputBuffer = inputBuffer + String.fromCharCode(charCode);
