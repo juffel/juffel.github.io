@@ -77,9 +77,10 @@ function Terminal() {
         // if(isEnter)
         if(charCode === 13) {
             content.push(promptChar + inputBuffer);
-            _drawContent();
-            inputHandler(inputBuffer); // aktuelle Zeile weiterschicken
+            var tmp = inputBuffer;
             inputBuffer = ""; // aktuelle Zeile zurücksetzen
+            _drawContent();
+            inputHandler(tmp); // aktuelle Zeile weiterschicken
         }
         // if(isBackspace)
         else if(charCode === 8) {
