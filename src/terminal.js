@@ -112,13 +112,8 @@ function Terminal() {
         cursorStat = !cursorStat;
         _redrawInputRow();
         if(cursorStat) {
-            // String basteln, der transparent über die inputRow gelegt werden kann, sodass an deren Ende ein Zeichen erscheinen kann
-            var buf = promptChar;
-            for(var i = 0; i < inputBuffer.length; i++) {
-                buf = buf + " ";
-            }
-            buf = buf + "*";
-            _placeText(buf, leftMargin, screen.height);
+            var factor = (inputBuffer.length+promptChar.length);
+            _placeText("*", ctx.measureText(" ").width*factor + leftMargin, screen.height);
         }
     }
     

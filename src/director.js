@@ -11,7 +11,7 @@ function Director(terminal) {
         }
         // terminal.clear();
         terminal.write("");
-        terminal.writeln("<< " + current.getTitle() + " >>");
+        terminal.write("<< " + current.getTitle() + " >>");
         terminal.write(current.getDescription());
     }
 
@@ -30,7 +30,7 @@ function Director(terminal) {
                 // iterate over all tags of options of the current scene
                 var tags = options[j].getTags();
                 for(var k = 0; k < tags.length; k++) {
-                    if(tokens[i] === tags[k]) {
+                    if(tokens[i].toUpperCase() === tags[k].toUpperCase()) {
                         setScene(options[j].getDestination());
                         return;
                     }
@@ -40,7 +40,7 @@ function Director(terminal) {
         
         // no matching tag found
         var noSorry = ["Try something else!", "This is no use.", "Think of a different approach!", "That's just useless.", "You cannot do that!", "This is unappropriate.", "Something else has to be done now."];
-        terminal.write(noSorry[Math.floor(Math.random())*noSorry.length]);
+        terminal.write(noSorry[Math.floor(Math.random()*noSorry.length)]);
     }
 
     return {

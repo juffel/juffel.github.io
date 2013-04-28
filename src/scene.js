@@ -20,8 +20,8 @@ function Scene(id, title) {
         return description;
     }
 
-    function addOption(option) {
-        options.push(option);
+    function addOption(name, tags, destination) {
+        options.push(new Option(name, tags, destination));
     }
 
     function getOptions() {
