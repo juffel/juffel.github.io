@@ -1,7 +1,7 @@
 function Terminal() {
     var width = window.innerWidth - 15;
     var height = window.innerHeight - 10;
-    document.writeln("<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>")
+    document.writeln("<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>");
 
     // TODO set focus on canvas
 
@@ -31,10 +31,6 @@ function Terminal() {
     function write(line) {
         content.push(line);
         _drawContent();
-    }
-
-    function writeln(line) {
-        write(line + "\n");
     }
 
     function setInputHandler(handler) {
@@ -138,7 +134,6 @@ function Terminal() {
     return {
         setInputHandler : setInputHandler,
         write : write,
-        writeln : writeln,
         clear : clear
     }
 };
