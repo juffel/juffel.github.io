@@ -12,12 +12,14 @@ function Terminal() {
     var leftMargin = 5;
     var backgroundColor = "black";
     var inputRowHeight = textSize + rowMargin;
+    var promptChar = "> ";
 
     var screen;
     var ctx;
     var content = []; // array of lines of text
-    var inputBuffer = "$ ";
+    var inputBuffer = "";
     var cursorStat = true;
+    var inputHandler;
 
     _init();
 
@@ -32,8 +34,8 @@ function Terminal() {
         write(line + "\n");
     }
 
-    function setInputHandler() {
-        // TODO
+    function setInputHandler(handler) {
+        inputHandler = handler;
     }
 
     function clear() {
@@ -74,13 +76,14 @@ function Terminal() {
         var charCode = event.which;
         // if(isEnter)
         if(charCode === 13) {
-            content.push(inputBuffer);
-            inputBuffer = "$ ";
+            content.push(promptChar + inputBuffer);
             _drawContent();
+            inputHandler(inputBuffer); // aktuelle Zeile weiterschicken
+            inputBuffer = ""; // aktuelle Zeile zurücksetzen
         }
         // if(isBackspace)
         else if(charCode === 8) {
-            // vl noch implementieren
+            // TODO
         }
         else {
             inputBuffer = inputBuffer + String.fromCharCode(charCode);
@@ -93,7 +96,7 @@ function Terminal() {
         _redrawInputRow();
         if(cursorStat) {
             // String basteln, der transparent über die inputRow gelegt werden kann, sodass an deren Ende ein Zeichen erscheinen kann
-            var buf = "";
+            var buf = promptChar;
             for(var i = 0; i < inputBuffer.length; i++) {
                 buf = buf + " ";
             }
@@ -106,7 +109,7 @@ function Terminal() {
         ctx.clearRect(0, screen.height-inputRowHeight, screen.width, screen.height);
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, screen.height-inputRowHeight, screen.width, screen.height);
-        _placeText(inputBuffer, leftMargin, screen.height);
+        _placeText(promptChar + inputBuffer, leftMargin, screen.height);
     }
 
     function _placeText(string, x, y) {
