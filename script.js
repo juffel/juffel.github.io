@@ -5,4 +5,7 @@ terminal.write("Laeuft immernoch?");
 terminal.write("\n");
 terminal.write("Schoen, schoen!");
 
-terminal.setInputHandler(function(inputString) {});
+terminal.setInputHandler(function(inputString) {
+    var tmp = inputString.split("").reverse().join("");
+    terminal.writeln(tmp);
+});
