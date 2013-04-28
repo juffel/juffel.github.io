@@ -51,10 +51,17 @@ function Terminal() {
 
     function _drawContent() {
         _clear();
-        for(var i = content.length; i > 0 && screen.height - inputRowHeight - (textSize+rowMargin)*(content.length - i) >= 0 ; i--) {
-            _placeText(content[content.length-i], leftMargin, screen.height - inputRowHeight - ((i-1)*(textSize + rowMargin)));
+
+        // next line: "-1" because there is a additional (input) line to be placed
+        var rowCount = (screen.height / (textSize + rowMargin)) - 1;
+        content.splice(-rowCount, 0); // drop old content-entries, which are not displayable anymore
+
+        for(var i = content.length-1; i >= 0  ; i--) {
+            var yPos = screen.height - inputRowHeight - (content.length - i)*(rowMargin + textSize);
+            _placeText(content[i], leftMargin, yPos);
         }
-        // draw Prompt
+
+        // redraw Prompt
         _placeText(inputBuffer, leftMargin, screen.height);
     }
 
