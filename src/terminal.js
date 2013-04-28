@@ -33,6 +33,11 @@ function Terminal() {
         content.push(line);
         _drawContent();
     }
+    
+    function writeln(line) {
+        write(line);
+        write("");
+    }
 
     function setInputHandler(handler) {
         inputHandler = handler;
@@ -135,6 +140,7 @@ function Terminal() {
     return {
         setInputHandler : setInputHandler,
         write : write,
+        writeln : writeln,
         clear : clear
     }
 };

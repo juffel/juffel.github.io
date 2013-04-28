@@ -9,9 +9,9 @@ function Director(terminal) {
             console.log("No scene found with ID " + sceneID);
             return;
         }
-        terminal.clear();
-        terminal.write("<< " + current.getTitle() + " >>");
+        // terminal.clear();
         terminal.write("");
+        terminal.writeln("<< " + current.getTitle() + " >>");
         terminal.write(current.getDescription());
     }
 
@@ -24,21 +24,23 @@ function Director(terminal) {
         var tokens = userInput.split(" ,;-_");
 
         // draw consequences
+        var options = current.getOptions();
         for(var i = 0; i < tokens.length; i++) {
-            for(var j = 0; j < current.options.length; j++) {
+            for(var j = 0; j < options.length; j++) {
                 // iterate over all tags of options of the current scene
-                for(var k = 0; k < current.options[j].tags; k++) {
-                    
-                    if(tokens[i] === current.options[j].tags[k]) {
-                        setScene(current.options[j].destination);
+                var tags = options[j].getTags();
+                for(var k = 0; k < tags.length; k++) {
+                    if(tokens[i] === tags[k]) {
+                        setScene(options[j].getDestination());
+                        return;
                     }
                 }
             }
         }
         
         // no matching tag found
-        terminal.write(noSorry[Math.random()*noSorry.length]);
         var noSorry = ["Try something else!", "This is no use.", "Think of a different approach!", "That's just useless.", "You cannot do that!", "This is unappropriate.", "Something else has to be done now."];
+        terminal.write(noSorry[Math.floor(Math.random())*noSorry.length]);
     }
 
     return {
