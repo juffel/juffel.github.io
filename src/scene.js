@@ -1,8 +1,16 @@
-function scene(id, title) {
+function Scene(id, title) {
     var id = id;
     var title = title;
     var description = "";
     var options = [];
+
+    function getID() {
+        return id;
+    }
+
+    function getTitle() {
+        return title;
+    }
 
     function setDescription(descr) {
         description = descr;
@@ -23,7 +31,10 @@ function scene(id, title) {
     return {
         setDescription : setDescription,
         getDescription : getDescription,
-        addOption : setOptions,
+        addOption : addOption,
         getOptions : getOptions,
+        getTitle : getTitle,
+        getID : getID
     }
 };
+window.Scene = Scene;

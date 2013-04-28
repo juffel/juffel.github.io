@@ -29,6 +29,7 @@ function Terminal() {
     // cursor must blink!
 
     function write(line) {
+        // TODO splice long lines into several lines
         content.push(line);
         _drawContent();
     }
