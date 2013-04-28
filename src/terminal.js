@@ -2,6 +2,9 @@ function Terminal() {
     var width = window.innerWidth - 15;
     var height = window.innerHeight - 10;
     document.writeln("<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>")
+
+    // TODO set focus on canvas
+
     unloadScrollbars();
 
     // settings
