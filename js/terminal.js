@@ -63,6 +63,10 @@ function Terminal() {
 
         // redraw Prompt
         _placeText(inputBuffer, leftMargin, screen.height);
+
+        // place horizontal line between input and output area
+        ctx.fillStyle = textColor;
+        ctx.fillRect(0, screen.height - inputRowHeight - 15, screen.width, 5);
     }
 
     function _init() {
