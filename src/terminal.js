@@ -9,7 +9,7 @@ function Terminal(divName) {
     var textColor = "#00FF00";
     var leftMargin = 5;
     var backgroundColor = "black";
-    var inputRowHeight = textSize + rowMargin;
+    var inputRowHeight = textSize + 2*rowMargin;
     var promptChar = "> ";
 
     var screen;
@@ -136,8 +136,8 @@ function Terminal(divName) {
 
     function _initCanvas(divName) {
         var area = document.getElementById(divName);
-        var width = window.innerWidth - 15;
-        var height = window.innerHeight - 10;
+        var width = window.innerWidth;
+        var height = window.innerHeight;
         area.innerHTML = "<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>";
         // does not work...
         unloadScrollbars(); // disable scrollbars
