@@ -4,7 +4,7 @@ function Terminal(divName) {
 
     // settings
     var textSize = 20;
-    var fontType = "bold " + textSize + "px TlwgTypewriter";
+    var fontType = "bold " + textSize + "px MonoSelf";
     var rowMargin = 2; // margin between two rows of text
     var textColor = "#00FF00";
     var leftMargin = 5;

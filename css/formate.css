@@ -1,4 +1,9 @@
 @font-face {
-    font-family: 'TlwgTypewriter';
-    src: local('TlwgTypewriter'), url('css/TlwgTypewriter.ttf'), format('truetype');
+    font-family: MonoSelf;
+    src: url(css/TlwgTypewriter.ttf) format('truetype');
+    src: local ('Ø'), url(css/TlwgTypewriter.ttf) format('truetype');
+}
+
+h1 {
+    font-family: MonoSelf;
 }
