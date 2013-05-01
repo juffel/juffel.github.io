@@ -85,28 +85,39 @@ function Terminal(divName) {
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, screen.width, screen.height);
 
-        screen.onkeypress = function(event) {
-            _handleKeypress(event);
-        };
+        screen.onkeypress = function(event) { _handleKeypress(event); };
+        screen.onkeydown = function(event) { _handleKeydown(event); };
     }
-    
+
     function _handleKeypress(event) {
         var charCode = event.which;
-        // if(isEnter)
-        if(charCode === 13) {
+        if(charCode === 13) { // ENTER
             content.push(promptChar + inputBuffer);
             var tmp = inputBuffer;
             inputBuffer = ""; // aktuelle Zeile zurücksetzen
             _drawContent();
             inputHandler(tmp); // aktuelle Zeile weiterschicken
         }
-        // if(isBackspace)
         else if(charCode === 8) {
-            // TODO
+            // do nothing, normally this block is unreachable and this case is handled by the _handleKeydown(...) function
+            console.log("this should not happen!");
         }
-        else {
+        else { // OTHER KEYS
             inputBuffer = inputBuffer + String.fromCharCode(charCode);
             _redrawInputRow();
+        }
+    }
+
+    // necessary for backspace keyevents
+    function _handleKeydown(event) {
+        var keyID = event.keyCode;
+
+        if(keyID === 8) { // BACKSPACE
+            // TODO 
+            if(inputBuffer.length > 0) {
+                inputBuffer = inputBuffer.slice(0, inputBuffer.length - 1);
+                _redrawInputRow();
+            }
         }
     }
 
@@ -138,10 +149,10 @@ function Terminal(divName) {
         var area = document.getElementById(divName);
         var width = window.innerWidth;
         var height = window.innerHeight;
-        area.innerHTML = "<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>";
+        area.innerHTML = "<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "'></canvas>";
         // does not work...
         unloadScrollbars(); // disable scrollbars
-        area.focus(); // set focus on canvas
+        document.getElementById('screen').focus(); // set focus on canvas
     }
 
     function enablePrompt() {
