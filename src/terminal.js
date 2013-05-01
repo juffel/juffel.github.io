@@ -65,9 +65,9 @@ function Terminal(divName) {
         // splice long lines into several lines
         var charWidth = ctx.measureText('M').width;
         for(var i = 0; i < content.length; i++) {
-            if(content[i].length * charWidth > screen.width - (2*charWidth)) {
-                var newLine = content[i].slice(0, Math.floor(screen.width/charWidth)-2);
-                content[i] = promptChar + content[i].slice(Math.floor(screen.width/charWidth)-2, content[i].length);
+            if(content[i].length * charWidth > screen.width - (charWidth)) {
+                var newLine = content[i].slice(0, Math.floor(screen.width/charWidth)-1);
+                content[i] = content[i].slice(Math.floor(screen.width/charWidth)-2, content[i].length);
                 content.splice(i, 0, newLine);
             }
         }

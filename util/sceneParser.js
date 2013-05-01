@@ -6,12 +6,6 @@ function parseScenes(string) {
 
         var marker = i;
 
-        while(string[i] !== "/") {
-            i++;
-        }
-        var id = string.substring(marker, i);
-
-        marker = i;
         while(string[i] !== "\n") {
             i++;
         }

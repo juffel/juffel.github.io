@@ -1,8 +1,10 @@
-function Scene(id, title) {
+function Scene(id, title, description, options) {
     var id = id;
     var title = title;
-    var description = "";
-    var options = [];
+    var description = description;
+    if(options == undefined) {
+        var options = [];
+    }
 
     function getID() {
         return id;

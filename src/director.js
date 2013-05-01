@@ -26,7 +26,7 @@ function Director(terminal) {
 
     function manageInput(userInput) {
         // tokenize
-        var tokens = userInput.split(" ,;-_");
+        var tokens = userInput.split(" ");
 
         // draw consequences
         // TODO add some global options e.g. "help"
