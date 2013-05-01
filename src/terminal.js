@@ -25,7 +25,6 @@ function Terminal(divName) {
     // cursor must blink!
 
     function write(line) {
-        // TODO splice long lines into several lines
         content.push(line);
         _drawContent();
     }
@@ -60,9 +59,18 @@ function Terminal(divName) {
     function _drawContent() {
         _clear();
 
-        // next line: "-1" because there is a additional (input) line to be placed
-        var rowCount = (screen.height / (textSize + rowMargin)) - 1;
+        var rowCount = (screen.height / (textSize + rowMargin)) - 1; // "-1" because there is a additional (input) line to be placed
         content.splice(-rowCount, 0); // drop old content-entries, which are not displayable anymore
+
+        // splice long lines into several lines
+        var charWidth = ctx.measureText('M').width;
+        for(var i = 0; i < content.length; i++) {
+            if(content[i].length * charWidth > screen.width - (2*charWidth)) {
+                var newLine = content[i].slice(0, Math.floor(screen.width/charWidth)-2);
+                content[i] = promptChar + content[i].slice(Math.floor(screen.width/charWidth)-2, content[i].length);
+                content.splice(i, 0, newLine);
+            }
+        }
 
         for(var i = content.length-1; i >= 0  ; i--) {
             var yPos = screen.height - inputRowHeight - (content.length - i)*(rowMargin + textSize);
