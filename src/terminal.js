@@ -21,7 +21,6 @@ function Terminal(divName) {
     var inputHandler;
 
     _init();
-    // TODO anfänglichen ladebalken anzeigen oder so
 
     // cursor must blink!
 
@@ -87,6 +86,8 @@ function Terminal(divName) {
 
         screen.onkeypress = function(event) { _handleKeypress(event); };
         screen.onkeydown = function(event) { _handleKeydown(event); };
+
+        window.onresize = function(event) { _handleResize(event); };
     }
 
     function _handleKeypress(event) {
@@ -113,12 +114,17 @@ function Terminal(divName) {
         var keyID = event.keyCode;
 
         if(keyID === 8) { // BACKSPACE
-            // TODO 
             if(inputBuffer.length > 0) {
                 inputBuffer = inputBuffer.slice(0, inputBuffer.length - 1);
                 _redrawInputRow();
             }
         }
+    }
+
+    function _handleResize(event) {
+        ctx.canvas.width = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+        _drawContent();
     }
 
     function _toggleCursorBlink() {
