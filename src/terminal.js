@@ -3,8 +3,8 @@ function Terminal(divName) {
     _initCanvas(divName);
 
     // settings
-    var fontType = "bold 20px Courier";
     var textSize = 20;
+    var fontType = "bold " + textSize + "px TlwgTypewriter";
     var rowMargin = 2; // margin between two rows of text
     var textColor = "#00FF00";
     var leftMargin = 5;
