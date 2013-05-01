@@ -68,6 +68,7 @@ function Director(terminal) {
 
     function loadScenes(path) {
         // TODO
+        console.log("loadScenes(path) not yet implemented");
     }
 
     // requires a variable scenes containing an array of Scene-objects to be in namespace
@@ -82,10 +83,7 @@ function Director(terminal) {
         manageInput : manageInput,
         setScene : setScene,
         addScene : addScene,
-/*        getSceneDescription : getSceneDescription,
-        getOptions : getOptions,
-        chooseOption : chooseOption,
-        chooseScene : chooseScene */
+        loadScenes : loadScenes
     }
 };
 window.Director = Director;
