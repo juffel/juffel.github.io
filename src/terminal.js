@@ -14,13 +14,13 @@ function Terminal(divName) {
 
     var screen;
     var ctx;
+    var cursor;
     var content = []; // array of lines of text
     var inputBuffer = "";
     var cursorStat = true;
     var inputHandler;
 
     _init();
-    setTimeout(function() {_drawContent();}, 200); // kurz nachm initalisieren der seite neuladen, in der hoffnung, dass der font dann schon geladen ist
     // TODO anfänglichen ladebalken anzeigen oder so
 
     // cursor must blink!
@@ -34,6 +34,13 @@ function Terminal(divName) {
     function writeln(line) {
         write(line);
         write("");
+    }
+
+    function centerWrite(line) {
+        var midX = (screen.width/2);
+        var midY = (screen.height/2);
+        clear();
+        _placeText(line, midX, midY);
     }
 
     function setInputHandler(handler) {
@@ -70,19 +77,17 @@ function Terminal(divName) {
         ctx.fillStyle = textColor;
         ctx.fillRect(0, screen.height - inputRowHeight - 15, screen.width, 5);
     }
-
+    
     function _init() {
         // blacken screen
         screen = document.getElementById("screen");
         ctx = screen.getContext("2d");
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, screen.width, screen.height);
-        write("WELCOME!");
 
         screen.onkeypress = function(event) {
             _handleKeypress(event);
         };
-        setInterval(function() {_toggleCursorBlink();}, 300);
     }
     
     function _handleKeypress(event) {
@@ -139,11 +144,24 @@ function Terminal(divName) {
         area.focus(); // set focus on canvas
     }
 
+    function enablePrompt() {
+        cursor = setInterval(function() {_toggleCursorBlink();}, 300);
+    }
+
+    function disablePrompt() {
+        // TODO maybe disable user input?
+        clearInterval(cursor);
+        clear();
+    }
+
     return {
         setInputHandler : setInputHandler,
         write : write,
         writeln : writeln,
-        clear : clear
+        centerWrite : centerWrite,
+        clear : clear,
+        enablePrompt : enablePrompt,
+        disablePrompt : disablePrompt
     }
 };
 window.Terminal = Terminal;

@@ -1,12 +1,16 @@
 function Director(terminal) {
+
     var current = ""; // id of current scene
     var scenes = [];
     var terminal = terminal;
 
+    terminal.disablePrompt();
+    _loadingScreen();
+
     function setScene(sceneID) {
         current = scenes[sceneID];
         if(!current) {
-            console.log("No scene found with ID " + sceneID);
+            console.log("No scene found with ID \"" + sceneID + "\"");
             return;
         }
         // terminal.clear();
@@ -24,6 +28,7 @@ function Director(terminal) {
         var tokens = userInput.split(" ,;-_");
 
         // draw consequences
+        // TODO add some global options e.g. "help"
         var options = current.getOptions();
         for(var i = 0; i < tokens.length; i++) {
             for(var j = 0; j < options.length; j++) {
@@ -41,6 +46,35 @@ function Director(terminal) {
         // no matching tag found
         var noSorry = ["Try something else!", "This is no use.", "Think of a different approach!", "That's just useless.", "You cannot do that!", "This is unappropriate.", "Something else has to be done now."];
         terminal.write(noSorry[Math.floor(Math.random()*noSorry.length)]);
+    }
+
+    function _loadingScreen() {
+        var i = 0;
+        var cycle = function(i) {
+            if(i < 20) { 
+                if (i%4 === 0) { terminal.centerWrite("..."); }
+                else if(i%4 === 1) { terminal.centerWrite("*.."); }
+                else if(i%4 === 2) { terminal.centerWrite(".*."); }
+                else if(i%4 === 3) { terminal.centerWrite("..*"); }
+
+                i++;
+                window.setTimeout(function() { cycle(i); }, 100);
+            }
+            else { terminal.enablePrompt(); tmpScenes(); }
+        };
+        cycle(i);
+    }
+
+    function loadScenes(path) {
+        // TODO
+    }
+
+    // requires a variable scenes containing an array of Scene-objects to be in namespace
+    function tmpScenes() {
+        for(var i = 0; i < sceneList.length; i++) {
+            addScene(sceneList[i]);
+        }
+        setScene("start");
     }
 
     return {
