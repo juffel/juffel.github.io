@@ -8,6 +8,7 @@ function Director(terminal) {
     _loadingScreen();
 
     function setScene(sceneID) {
+        // TODO emphasize options appearing in description
         current = scenes[sceneID];
         if(!current) {
             console.log("No scene found with ID \"" + sceneID + "\"");
