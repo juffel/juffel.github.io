@@ -1,14 +1,9 @@
-function Terminal() {
-    var width = window.innerWidth - 15;
-    var height = window.innerHeight - 10;
-    document.writeln("<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>");
+function Terminal(divName) {
 
-    // TODO set focus on canvas
-
-    unloadScrollbars();
+    _initCanvas(divName);
 
     // settings
-    var fontType = "bold 20px TlwgTypewriter";
+    var fontType = "bold 20px Courier";
     var textSize = 20;
     var rowMargin = 2; // margin between two rows of text
     var textColor = "#00FF00";
@@ -130,6 +125,15 @@ function Terminal() {
         ctx.textAlign = "align";
         ctx.textBaseline = "bottom";
         ctx.fillText(string, x, y);
+    }
+
+    function _initCanvas(divName) {
+        var area = document.getElementById(divName);
+        var width = window.innerWidth - 15;
+        var height = window.innerHeight - 10;
+        area.innerHTML = "<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>";
+        area.focus(); // set focus on canvas
+        unloadScrollbars(); // disable scrollbars
     }
 
     return {

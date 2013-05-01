@@ -1,4 +1,6 @@
-var terminal = new Terminal();
+
+
+var terminal = new Terminal("canvasArea");
 
 var director = new Director(terminal);
 
