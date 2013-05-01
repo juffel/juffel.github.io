@@ -1,9 +1,1 @@
-@font-face {
-    font-family: MonoSelf;
-    src: url(css/TlwgTypewriter.ttf) format('truetype');
-    src: local ('Ø'), url(css/TlwgTypewriter.ttf) format('truetype');
-}
-
-h1 {
-    font-family: MonoSelf;
-}
+@font-face {  font-family: MonoSelf; src: url(TlwgTypewriter.ttf) format("truetype");  }

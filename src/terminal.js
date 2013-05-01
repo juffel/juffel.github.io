@@ -20,6 +20,8 @@ function Terminal(divName) {
     var inputHandler;
 
     _init();
+    setTimeout(function() {_drawContent();}, 200); // kurz nachm initalisieren der seite neuladen, in der hoffnung, dass der font dann schon geladen ist
+    // TODO anfänglichen ladebalken anzeigen oder so
 
     // cursor must blink!
 
@@ -132,8 +134,9 @@ function Terminal(divName) {
         var width = window.innerWidth - 15;
         var height = window.innerHeight - 10;
         area.innerHTML = "<canvas id='screen' tabindex='1' width='" + width + "' height='" + height + "' onkeypress='getChar()'></canvas>";
-        area.focus(); // set focus on canvas
+        // does not work...
         unloadScrollbars(); // disable scrollbars
+        area.focus(); // set focus on canvas
     }
 
     return {
