@@ -24,8 +24,10 @@ var bulldozer = new Scene("bulldozer", "DEVASTATION");
 bulldozer.setDescription("Your newly gained power seems to raise you some kilometres in the direction of the unreachable stars. The chair in front of you embodies a poorly protected victim.");
 bulldozer.addOption(["crush", "smash", "chair", "flat", "flatten", "destroy"], "antisofa");
 
+var ceiling = new Scene("ceiling", "HEAVEN");
+
 var antisofa = new Scene("antisofa", "ANTISOFA");
-antisofa.setDescription("All comfort vanished from planet earth. It is almost as if you overran the natural comfortability-equilibrium. The existence of an dairy antisofa is standing to reason.");
+antisofa.setDescription("All comfort vanished from planet earth. It is almost as if you exceeded the natural comfortability-equilibrium. The existence of an dairy antisofa is standing to reason.");
 
 var painting = new Scene("painting", "THE ISLE OF FAT");
 painting.setDescription("Something feels odd about this painting. Beneath it's greasy surface it would seem that it tasted like a walk through one of those warm summer nights, which follow the first days of summer.");
@@ -33,6 +35,7 @@ painting.addOption(["lick"], "gustation");
 painting.addOption(["go", "for", "walk"], "walk");
 
 var gustation = new Scene("gustation", "GUSTATION");
+gustation.setDescription("Deep down your throat reaches your tongue. So does the icky savor that spreads from the soft piece of organic material you just ingested. You would really like to know if it is the cause of your sudden dizziness.");
 
 var walk = new Scene("walk", "PROMENADE");
 
@@ -43,8 +46,11 @@ mind.addOption(["solution"], "end");
 var darkness = new Scene("darkness", "DARKNESS");
 darkness.setDescription("The visual world around you consists just of a thick, heavy black shadow, that seems to consume your whole imagination. Maybe you should cause some distraction.");
 darkness.addOption(["open", "eyes", "look"], "begin");
+darkness.addOption(["bang", "smash", "head", "against", "floor"], "headache");
+
+var headache = new Scene("headache", "ACHE IN THE HEAD");
 
 var end = new Scene("end", "THIS IS THE END");
 end.setDescription("And then they lived happily ever after.");
 
-var sceneList = [start, credits, begin, standing, mind, darkness, painting, gustation, walk, bulldozer, antisofa, end];
+var sceneList = [start, credits, begin, standing, mind, headache, darkness, painting, gustation, walk, bulldozer, antisofa, ceiling, end];
