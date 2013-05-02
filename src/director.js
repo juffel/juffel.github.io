@@ -16,8 +16,10 @@ function Director(terminal) {
         }
         // terminal.clear();
         terminal.write("");
-        terminal.write("<< " + current.getTitle() + " >>");
-        terminal.write(current.getDescription());
+        if(current.getTitle()) { terminal.write("<< " + current.getTitle() + " >>"); }
+        else { terminal.write("<< UNTITLED SCENE >>"); }
+        if(current.getDescription()) { terminal.write(current.getDescription()); }
+        else { terminal.write("Be careful! You set step on uncharted land. Please leave the place as you found it!"); }
         if(current.getOptions().length === 0) {
             terminal.write("");
             terminal.write("There is no return from this state but to admit defeat and bear the consequences.");

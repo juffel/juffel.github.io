@@ -37,7 +37,7 @@ var gustation = new Scene("gustation", "GUSTATION");
 var walk = new Scene("walk", "PROMENADE");
 
 var mind = new Scene("mind", "INSIDE YOUR BRAIN");
-mind.setDescription("It is warm and gooey in here. That golden thread that got you here will weaken with any further second you spend in here.");
+mind.setDescription("It is warm and gooey in here. That golden thread that got you here will weaken with any further second you spend in here. And also the End is near! The clue to solving this situation is nominalization.");
 mind.addOption(["solution"], "end");
 
 var darkness = new Scene("darkness", "DARKNESS");
