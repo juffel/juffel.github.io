@@ -1,1 +1,5 @@
 @font-face {  font-family: MonoSelf; src: url(TlwgTypewriter.ttf) format("truetype");  }
+
+html, body {
+    margin: 0px;
+}

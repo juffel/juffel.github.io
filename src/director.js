@@ -18,6 +18,10 @@ function Director(terminal) {
         terminal.write("");
         terminal.write("<< " + current.getTitle() + " >>");
         terminal.write(current.getDescription());
+        if(current.getOptions().length === 0) {
+            terminal.write("");
+            terminal.write("There is no return from this state but to admit defeat and bear the consequences.");
+        }
     }
 
     function addScene(scene) {
@@ -45,7 +49,7 @@ function Director(terminal) {
         }
         
         // no matching tag found
-        var noSorry = ["Try something else!", "This is no use.", "Think of a different approach!", "That's just useless.", "You cannot do that!", "This is unappropriate.", "Something else has to be done now."];
+        var noSorry = ["Try something else!", "This is no use.", "Think of a different approach!", "That's just useless.", "You cannot do that!", "This is inappropriate.", "Something else has to be done now."];
         terminal.write(noSorry[Math.floor(Math.random()*noSorry.length)]);
     }
 

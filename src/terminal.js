@@ -22,8 +22,6 @@ function Terminal(divName) {
 
     _init();
 
-    // cursor must blink!
-
     function write(line) {
         content.push(line);
         _drawContent();
@@ -59,22 +57,24 @@ function Terminal(divName) {
     function _drawContent() {
         _clear();
 
-        var rowCount = (screen.height / (textSize + rowMargin)) - 1; // "-1" because there is a additional (input) line to be placed
-        content.splice(-rowCount, 0); // drop old content-entries, which are not displayable anymore
+        // var rowCount = (screen.height / (textSize + rowMargin)) - 1; // "-1" because there is a additional (input) line to be placed
+
+        var drawBuf = content.slice(0, 50); // copies the beginning of the array
 
         // splice long lines into several lines
         var charWidth = ctx.measureText('M').width;
-        for(var i = 0; i < content.length; i++) {
-            if(content[i].length * charWidth > screen.width - (charWidth)) {
-                var newLine = content[i].slice(0, Math.floor(screen.width/charWidth)-1);
-                content[i] = content[i].slice(Math.floor(screen.width/charWidth)-2, content[i].length);
-                content.splice(i, 0, newLine);
+        for(var i = 0; i < drawBuf.length; i++) {
+            if(((promptChar.length + drawBuf[i].length)*charWidth) > (screen.width - leftMargin)) {
+                var breakIndex = Math.floor((screen.width-leftMargin) / charWidth) - promptChar.length; // where to split the string
+                var newLine = drawBuf[i].slice(0, breakIndex); // first part into newLine
+                drawBuf[i] = drawBuf[i].slice(breakIndex); // remove first part from rest of line
+                drawBuf.splice(i, 0, newLine); // insert new Line
             }
         }
 
-        for(var i = content.length-1; i >= 0  ; i--) {
-            var yPos = screen.height - inputRowHeight - (content.length - i)*(rowMargin + textSize);
-            _placeText(content[i], leftMargin, yPos);
+        for(var i = drawBuf.length-1; i >= 0  ; i--) {
+            var yPos = screen.height - inputRowHeight - (drawBuf.length - i)*(rowMargin + textSize);
+            _placeText(drawBuf[i], leftMargin, yPos);
         }
 
         // redraw Prompt
