@@ -57,14 +57,15 @@ function Terminal(divName) {
     function _drawContent() {
         _clear();
 
-        // var rowCount = (screen.height / (textSize + rowMargin)) - 1; // "-1" because there is a additional (input) line to be placed
-
         var drawBuf = content.slice(0, 50); // copies the beginning of the array
 
         // splice long lines into several lines
-        var charWidth = ctx.measureText('M').width;
+        var textareaWidth = screen.width - leftMargin;
         for(var i = 0; i < drawBuf.length; i++) {
-            if(((promptChar.length + drawBuf[i].length)*charWidth) > (screen.width - leftMargin)) {
+            ctx.font = fontType;
+            var charWidth = ctx.measureText('M').width;
+            var lineLength = (promptChar.length + drawBuf[i].length)*charWidth;
+            if(lineLength > textareaWidth) {
                 var breakIndex = Math.floor((screen.width-leftMargin) / charWidth) - promptChar.length; // where to split the string
                 var newLine = drawBuf[i].slice(0, breakIndex); // first part into newLine
                 drawBuf[i] = drawBuf[i].slice(breakIndex); // remove first part from rest of line

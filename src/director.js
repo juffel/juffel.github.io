@@ -35,7 +35,8 @@ function Director(terminal) {
         var tokens = userInput.split(" ");
 
         // draw consequences
-        // TODO add some global options e.g. "help"
+        // TODO add some global options
+        /* like :q, --help, help, quit() */
         var options = current.getOptions();
         for(var i = 0; i < tokens.length; i++) {
             for(var j = 0; j < options.length; j++) {
