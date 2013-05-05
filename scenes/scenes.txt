@@ -1,0 +1,46 @@
+start / Eventually its gonna be a textadventure
+Begin? Or Credits?
+begin: start, begin
+credits: credits
+
+credits / CREDITS
++++ juffel +++
+begin: start
+
+begin / IN THE BEGINNING
+The Story begins. You are sitting on a backless chair and feel the intense pain of not knowing.
+standing: stand, up, get
+mind: concentrate, think, remember
+darkness: close, eye, eyes, blind
+ceiling: lean, back
+
+standing / UP IN THE AIR
+From up here everything looks different. You focus on some details in the painting on the bulldozer in front of you.
+begin: sit, down, floor, chair
+painting: look, focus
+bulldozer: enter
+
+bulldozer / DEVASTATION
+Your newly gained power seems to raise you some kilometres in the direction of the unreachable stars. The chair in front of you embodies a poorly protected victim.
+antisofa: crush, smash, chair, flat, flatten, destroy
+
+ceiling / HEAVEN
+Here goes the description
+option: bla
+
+antisofa / ANTISOFA
+All comfort vanished from planet earth. It is almost as if you exceeded the natural comfortability-equilibrium. The existence of an dairy antisofa is standing to reason.
+option: bla
+
+painting / THE ISLE OF FAT
+Something feels odd about this painting. Beneath it's greasy surface it would seem that it tasted like a walk through one of those warm summer nights, which follow the first days of summer.
+gustation: lick
+walk: go, for, walk, promenade
+
+gustation / GUSTATION
+Deep down your throat reaches your tongue. So does the icky savor that spreads from the soft piece of organic material you just ingested. You would really like to know if it is the cause of your sudden dizziness.
+option: bla
+
+walk / PROMENADE
+Here goes the description
+option: bla
