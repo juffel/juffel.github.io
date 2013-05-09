@@ -1,8 +1,9 @@
+var terminal = new Terminal("canvasArea", function() {
+    var director = new Director(terminal);
 
-var terminal = new Terminal("canvasArea");
+    terminal.setInputHandler(function(inputString) {
+        director.manageInput(inputString);
+    });
 
-var director = new Director(terminal);
-
-terminal.setInputHandler(function(inputString) {
-    director.manageInput(inputString);
+    director.start();
 });

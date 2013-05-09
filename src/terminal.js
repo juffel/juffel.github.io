@@ -1,4 +1,4 @@
-function Terminal(divName) {
+function Terminal(divName, beginFunction) {
 
     _initCanvas(divName);
 
@@ -19,6 +19,8 @@ function Terminal(divName) {
     var inputBuffer = "";
     var cursorStat = true;
     var inputHandler;
+
+    var begin = beginFunction; // function which is executed, when terminal is ready
 
     _init();
 
@@ -97,6 +99,35 @@ function Terminal(divName) {
         screen.onkeydown = function(event) { _handleKeydown(event); };
 
         window.onresize = function(event) { _handleResize(event); };
+
+        _loadingScreen();
+    }
+
+    function _loadingScreen() {
+        // loading screen while font not loaded
+        var ctr = 0;
+        var interval = setInterval(function() {
+                // if font is monospace, then break timer
+                if(ctx.measureText('M').width === ctx.measureText('i').width) {
+                    clearInterval(interval);
+                    console.log("font loaded");
+                    centerWrite("***");
+                    // commence with begin-function
+                    if(begin) { 
+                        enablePrompt();
+                        return begin();
+                    }
+                    else {
+                        console.log("no begin function set ( terminal.setBegin( function() {} ) )");
+                    }
+                }
+                else if (ctr%4 === 0) { centerWrite("..."); }
+                else if(ctr%4 === 1) { centerWrite("*.."); }
+                else if(ctr%4 === 2) { centerWrite(".*."); }
+                else if(ctr%4 === 3) { centerWrite("..*"); }
+                ctr += 1;
+                if(ctr > 1000) {console.log("loading font takes much time...");} 
+        }, 10);
     }
 
     function _handleKeypress(event) {

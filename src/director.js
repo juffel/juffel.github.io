@@ -4,9 +4,6 @@ function Director(terminal) {
     var scenes = [];
     var terminal = terminal;
 
-    terminal.disablePrompt();
-    _loadingScreen();
-
     function setScene(sceneID) {
         // TODO emphasize options appearing in description
         current = scenes[sceneID];
@@ -56,32 +53,15 @@ function Director(terminal) {
         terminal.write(noSorry[Math.floor(Math.random()*noSorry.length)]);
     }
 
-    function _loadingScreen() {
-        var i = 0;
-        var cycle = function(i) {
-            if(i < 20) { 
-                if (i%4 === 0) { terminal.centerWrite("..."); }
-                else if(i%4 === 1) { terminal.centerWrite("*.."); }
-                else if(i%4 === 2) { terminal.centerWrite(".*."); }
-                else if(i%4 === 3) { terminal.centerWrite("..*"); }
-
-                i++;
-                window.setTimeout(function() { cycle(i); }, 100);
-            }
-            else { terminal.enablePrompt(); tmpScenes(); }
-        };
-        cycle(i);
-    }
-
     function loadScenes(path) {
         // TODO
         console.log("loadScenes(path) not yet implemented");
     }
 
     // requires a variable scenes containing an array of Scene-objects to be in namespace
-    function tmpScenes() {
+    function start() {
         for(var i = 0; i < sceneList.length; i++) {
-            addScene(sceneList[i]);
+            addScene(sceneList[i]); // sceneList.js is imported in html-file
         }
         setScene("start");
     }
@@ -90,7 +70,8 @@ function Director(terminal) {
         manageInput : manageInput,
         setScene : setScene,
         addScene : addScene,
-        loadScenes : loadScenes
+        loadScenes : loadScenes,
+        start : start
     }
 };
 window.Director = Director;
