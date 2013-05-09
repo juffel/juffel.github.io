@@ -108,7 +108,7 @@ function Terminal(divName, beginFunction) {
         var ctr = 0;
         var interval = setInterval(function() {
                 // if font is monospace, then break timer
-                if(ctx.measureText('M').width === ctx.measureText('i').width) {
+                if(ctx.measureText('M').width === ctx.measureText('i').width && ctr > 12) {
                     clearInterval(interval);
                     console.log("font loaded");
                     centerWrite("***");
@@ -126,8 +126,8 @@ function Terminal(divName, beginFunction) {
                 else if(ctr%4 === 2) { centerWrite(".*."); }
                 else if(ctr%4 === 3) { centerWrite("..*"); }
                 ctr += 1;
-                if(ctr > 1000) {console.log("loading font takes much time...");} 
-        }, 10);
+                if(ctr > 200) {console.log("loading font takes much time...");} 
+        }, 100);
     }
 
     function _handleKeypress(event) {
