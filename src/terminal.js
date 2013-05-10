@@ -3,7 +3,7 @@ function Terminal(divName, beginFunction) {
     _initCanvas(divName);
 
     // settings
-    var textSize = 20;
+    var textSize = 30;
     var fontType = "bold " + textSize + "px MonoSelf";
     var rowMargin = 2; // margin between two rows of text
     var textColor = "#00FF00";
@@ -108,7 +108,8 @@ function Terminal(divName, beginFunction) {
         var ctr = 0;
         var interval = setInterval(function() {
                 // if font is monospace, then break timer
-                if(ctx.measureText('M').width === ctx.measureText('i').width && ctr > 12) {
+                // if(ctx.measureText('M').width === ctx.measureText('i').width && ctr > 12) {
+                if(ctr > 12) {
                     clearInterval(interval);
                     console.log("font loaded");
                     centerWrite("***");
@@ -172,7 +173,7 @@ function Terminal(divName, beginFunction) {
         _redrawInputRow();
         if(cursorStat) {
             var factor = (inputBuffer.length+promptChar.length);
-            _placeText("*", ctx.measureText(" ").width*factor + leftMargin, screen.height);
+            _placeText("*", ctx.measureText(promptChar + inputBuffer).width + leftMargin, screen.height);
         }
     }
     
